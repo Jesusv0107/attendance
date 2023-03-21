@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  </head>
+  <center>
+ <h3>Student Roster</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach((student) => { %>
+        <tr>
+          <% if (student.attendanceCount < maxAttendanceCount) { %>
+            <td><%= student.name %> <i class="fa-solid fa-triangle-exclamation" style="color:red;font-size:8px;padding:5px;">&nbsp;Falling Behind</i></td>
+          <% } else { %>
+            <td><%= student.name %></td>
+          <% } %>
+          <td><%= student.email %></td>
+          <td><%= student.attendanceCount %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <center><form action="/reset" method="post">
+    <button type="submit">Reset</button>
+  </form>
+</center>
+  <h1>Attendance</h1>
+  <form action="/updatestudent" method="post">
+    <ul>
+      <% students.forEach((student) => { %>
+        <li>
+          <label>
+            <%= student.name %>
+            <input type="checkbox" name="attendance[]" value="<%= student._id %>">
+          </label>
+        </li>
+      <% }); %>
+    </ul>
+    <button type="submit">Submit</button>
+  </form>
+
+  
+
+  <body>
+    <link rel="stylesheet" href="/css/style.css">
+    <center><h3>Add Student</h3></center>
+   
+    <form action="/addstudent" method="POST">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+      </div>
+      <button type="submit">Add</button>
+    </form>
+    <br>
+    <center><h3>Delete a Student</h3></center>
+    <form action="/removestudent" method="POST">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <button type="submit">Delete</button>
+      </form>
+</center>
+    
+
+ <script>
+ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const hiddenInput = checkbox.parentNode.querySelector('input[type="hidden"]');
+      if (checkbox.checked) {
+        hiddenInput.value = checkbox.value;
+      } else {
+        hiddenInput.value = "";
+      }
+    });
+  });
+
+</script>
+
+
+  </body>
+</html>
