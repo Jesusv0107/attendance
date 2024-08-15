@@ -15,7 +15,7 @@ app.set('view engine', "ejs");
 
 
 
-const url = `mongodb+srv://toddnash:Summer2023@cluster0.ypw5ypl.mongodb.net/students`;
+const url = `mongodb+srv://<Jesus_velasco>:<Pangga0107!>@cluster0.n2hlh.mongodb.net/test`;
 
 const connectionParams={
     useNewUrlParser: true,
